@@ -56,6 +56,7 @@ test:
 clean: rmonelab rmtmp cleanpreppip
 	@find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
 	@rm -rf pyonelab.egg-info/ build/ dist/ tmp/
+	rm -rf pyonelab/bin/*
 
 
 lstmp:
