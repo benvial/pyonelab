@@ -2,6 +2,8 @@ import codecs
 import os
 
 from setuptools import setup, find_packages
+import platform
+
 
 # https://packaging.python.org/single_source_version/
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +19,7 @@ def read(fname):
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
-
+package_dir = {"pyonelab": "pyonelab-{}".format(platform.system())}
 setup(
     name="pyonelab",
     version=about["__version__"],
@@ -31,6 +33,7 @@ setup(
     project_urls={"Documentation": about["__website__"]},
     license=about["__license__"],
     platforms="any",
+    package_dir=package_dir,
     include_package_data=True,
     install_requires=required,
     extras_require={},

@@ -4,7 +4,6 @@
 *.com
 *.class
 *.dll
-*.exe
 *.o
 *.so
 
@@ -41,7 +40,6 @@ wheels/
 *.egg
 MANIFEST
 .coverage
-bin
 
 # Logs and databases #
 ######################

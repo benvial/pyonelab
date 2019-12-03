@@ -10,6 +10,7 @@ def test_gmsh():
     out = subprocess.call([gmsh, "--version"])
     assert out == 0
 
+
 def test_t1():
     out = subprocess.call([gmsh, "t1.geo", "-2"])
     print(out)

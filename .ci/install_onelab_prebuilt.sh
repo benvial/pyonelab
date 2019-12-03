@@ -59,9 +59,7 @@ echo '-----------------'
 # gmsh
 
 echo "installing gmsh..."
-wget -c http://gmsh.info/bin/$GMSH_ARCH -O gmsh.$ARCHEXT
-
-
+wget -cq http://gmsh.info/bin/$GMSH_ARCH -O gmsh.$ARCHEXT
 $EXTRACT gmsh.$ARCHEXT
 rm gmsh.$ARCHEXT
 mv $GMSH_NAME gmsh_tmp
