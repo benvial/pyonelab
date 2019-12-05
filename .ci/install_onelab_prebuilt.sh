@@ -15,12 +15,10 @@ else
 fi
 #
 rm -rf $ONELAB_PATH
-mkdir $ONELAB_PATH
+mkdir -p $ONELAB_PATH
 cd $ONELAB_PATH
-#
-#
-echo "Installing onelab $VERSION for $OS in $ONELAB_PATH"
-echo "-------------------------------------------------"
+
+echo "  >>> Installing onelab $VERSION for $OS in $ONELAB_PATH"
 
 
 case $OS in
@@ -52,44 +50,38 @@ case $OS in
 esac
 
 
-echo '-----------------'
-echo "installing onelab"
-echo '-----------------'
-
 # gmsh
 
-echo "installing gmsh..."
+echo "  >>> Installing gmsh..."
 wget -cq http://gmsh.info/bin/$GMSH_ARCH -O gmsh.$ARCHEXT
 $EXTRACT gmsh.$ARCHEXT
 rm gmsh.$ARCHEXT
 mv $GMSH_NAME gmsh_tmp
 if [ "$OS" == "windows" ]; then
-mv gmsh_tmp/gmsh.exe $ONELAB_PATH
+  mv gmsh_tmp/gmsh.exe $ONELAB_PATH
 else
-mv gmsh_tmp/bin/gmsh $ONELAB_PATH
+  mv gmsh_tmp/bin/gmsh $ONELAB_PATH
 fi
 if [ "$OS" == "osx" ]; then
-    mv gmsh_tmp/lib/*.dylib $ONELAB_PATH
+  mv gmsh_tmp/lib/*.dylib $ONELAB_PATH
 fi
 rm -rf gmsh_tmp
 
 
 # getdp
 
-echo "installing getdp..."
+echo "  >>> Installing getdp..."
 
 wget -cq http://getdp.info/bin/$GETDP_ARCH -O getdp.$ARCHEXT
 $EXTRACT getdp.$ARCHEXT
 rm getdp.$ARCHEXT
 mv $GETDP_NAME getdp_tmp
 if [ "$OS" == "windows" ]; then
-mv getdp_tmp/getdp.exe $ONELAB_PATH
+  mv getdp_tmp/getdp.exe $ONELAB_PATH
 else
-mv getdp_tmp/bin/getdp $ONELAB_PATH
+  mv getdp_tmp/bin/getdp $ONELAB_PATH
 fi
 rm -rf getdp_tmp
 
 
-echo '-----------------'
-echo "installation done"
-echo '-----------------'
+echo "  >>> Installation done."
