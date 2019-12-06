@@ -30,7 +30,7 @@ script:
   - conda --version && python --version && pip --version;
   - conda activate test-environment
   - pip install -e .
-  - pytest pyonelab
+  - pytest ./tests -s --cov=./
 # notifications:
 #    email:
 #        - [your email addres here without brackets and uncomment lines]
