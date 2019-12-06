@@ -1,0 +1,4 @@
+# name : travis_anaconda_jupyter
+# channels :
+#	defaults
+python == 3.7
