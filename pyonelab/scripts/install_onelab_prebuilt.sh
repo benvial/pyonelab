@@ -22,7 +22,7 @@ echo "  >>> Installing onelab $VERSION for $OS in $ONELAB_PATH"
 
 
 case $OS in
-     linux)
+     Linux)
           EXTRACT="tar -xf "
           ARCHEXT="tgz"
           export GMSH_NAME=gmsh-$GMSH_VERSION-Linux64
@@ -31,7 +31,7 @@ case $OS in
           export GETDP_ARCH=Linux/$GETDP_NAME\c.$ARCHEXT
 
           ;;
-     osx)
+     Darwin)
           EXTRACT="tar -xf "
           ARCHEXT="tgz"
           export GMSH_NAME=gmsh-$GMSH_VERSION-MacOSX-sdk
@@ -39,7 +39,7 @@ case $OS in
           export GETDP_NAME=getdp-$GETDP_VERSION-MacOSX
           export GETDP_ARCH=MacOSX/$GETDP_NAME\c.$ARCHEXT
           ;;
-     windows)
+     Windows)
          EXTRACT="unzip "
          ARCHEXT="zip"
          export GMSH_NAME=gmsh-$GMSH_VERSION-Windows64

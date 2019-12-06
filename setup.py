@@ -19,7 +19,8 @@ def read(fname):
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
-package_dir = {"pyonelab": "pyonelab-{}".format(platform.system())}
+# package_dir = {"pyonelab": "pyonelab-{}".format(platform.system())}
+package_dir = {"pyonelab": "pyonelab"}
 setup(
     name="pyonelab",
     version=about["__version__"],

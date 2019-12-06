@@ -23,7 +23,7 @@ tag:
 
 pipy: setup.py pipbuild
 	twine upload dist/*
-	
+
 pipbuild: preppip
 		@if [ "$(shell git rev-parse --abbrev-ref HEAD)" != "master" ]; then exit 1; fi
 		rm -rf dist/*
@@ -81,13 +81,13 @@ style:
 	black setup.py pyonelab/ tests/*.py
 
 onelab-linux:
-	bash .ci/install_onelab_prebuilt.sh linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
+	bash .ci/install_onelab_prebuilt.sh Linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
 
 onelab-osx:
-	bash .ci/install_onelab_prebuilt.sh osx $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
+	bash .ci/install_onelab_prebuilt.sh Darwin $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
 
 onelab-windows:
-	bash .ci/install_onelab_prebuilt.sh windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
+	bash .ci/install_onelab_prebuilt.sh Windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
 
 onelab: onelab-linux onelab-osx onelab-windows
 
