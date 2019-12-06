@@ -31,7 +31,8 @@ generation and postprocessing) and `GetDP <http://www.getdp.info/>`_ (finite
 element solver).
 
 
-## Installation
+Installation
+**************
 
 For Linux only, via `PyPi`_:
 
