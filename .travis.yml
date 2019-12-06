@@ -28,6 +28,7 @@ install:
 
 script:
   - conda --version && python --version && pip --version;
+  - conda activate test-environment
   - pip install -e .
   - pytest pyonelab
 # notifications:
