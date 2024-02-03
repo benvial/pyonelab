@@ -13,7 +13,6 @@ _script_path = os.path.realpath(os.path.dirname(os.path.abspath(__file__)))
 _bin_path = os.path.realpath(os.path.join(_script_path, "bin", _system))
 _local_folder_exist = os.path.exists(_bin_path)
 
-print("_local_folder_exist: ", _local_folder_exist)
 
 gmsh = shutil.which("gmsh")
 getdp = shutil.which("getdp")

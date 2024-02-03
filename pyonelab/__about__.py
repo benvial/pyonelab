@@ -1,9 +1,9 @@
 from datetime import date
 
-__version__ = "1.0.4"
-__author__ = u"Benjamin Vial"
+__version__ = "1.0.5"
+__author__ = "Benjamin Vial"
 __author_email__ = "benjamin.vial84@gmail.com"
-__copyright__ = u"Copyright (c) 2017-{}, {} <{}>".format(
+__copyright__ = "Copyright (c) 2017-{}, {} <{}>".format(
     date.today().year, __author__, __author_email__
 )
 __website__ = "https://github.com/benvial/pyonelab"

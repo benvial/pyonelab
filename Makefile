@@ -1,18 +1,15 @@
-#
-# ifeq ($(TRAVIS_OS_NAME),windows)
-# 	SHELL := cmd
-# else
-# 	SHELL := /bin/bash
-# endif
+
 
 SHELL := /bin/bash
 
+# VERSION=$(shell python3 -c "import gyptis; print(gyptis.__version__)")
 VERSION=$(shell python3 -c "import pyonelab; print(pyonelab.__version__)")
 
 ONELAB_VERSION = "stable"
 
 default:
 	@echo "\"make save\"?"
+	echo $(VERSION)
 
 tag:
 	# Make sure we're on the master branch
@@ -81,13 +78,13 @@ style:
 	black setup.py pyonelab/ tests/*.py
 
 onelab-linux:
-	bash .ci/install_onelab_prebuilt.sh Linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
+	bash docker/install_onelab_prebuilt.sh Linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
 
 onelab-osx:
-	bash .ci/install_onelab_prebuilt.sh Darwin $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
+	bash docker/install_onelab_prebuilt.sh Darwin $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
 
 onelab-windows:
-	bash .ci/install_onelab_prebuilt.sh Windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
+	bash docker/install_onelab_prebuilt.sh Windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
 
 onelab: onelab-linux onelab-osx onelab-windows
 
