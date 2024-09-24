@@ -1,50 +1,57 @@
-import codecs
-import os
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Author: Benjamin Vial
+# This file is part of pyonelab
+# License: MIT
 
-from setuptools import setup, find_packages
+import shutil
+import sys
+import subprocess
+from contextlib import suppress
+from pathlib import Path
+from setuptools import Command, setup
+from setuptools.command.build import build
+from setuptools import logging
+import os
 import platform
 
 
-# https://packaging.python.org/single_source_version/
-base_dir = os.path.abspath(os.path.dirname(__file__))
-about = {}
-with open(os.path.join(base_dir, "pyonelab", "__about__.py"), "rb") as f:
-    exec(f.read(), about)
+class CustomCommand(Command):
+    def initialize_options(self) -> None:
+        self.bdist_dir = None
+        self.pkg_name = None
+
+    def finalize_options(self) -> None:
+        self.pkg_name = self.distribution.get_name().replace("-", "_")
+        with suppress(Exception):
+            self.bdist_dir = Path(self.get_finalized_command("bdist_wheel").bdist_dir)
+
+    def run(self) -> None:
+        logging.logging.info("Downloading binaries")
+        system = platform.system()
+        script_path = os.path.realpath(os.path.dirname(os.path.abspath(__file__)))
+        bin_path = os.path.realpath(os.path.join(script_path, self.pkg_name, "bin"))
+        onelab_version = "stable"
+        command = [
+            "python",
+            "dev/install_onelab_prebuilt.py",
+            system,
+            bin_path,
+            onelab_version,
+        ]
+        if subprocess.call(command) != 0:
+            sys.exit(-1)
 
 
-def read(fname):
-    return codecs.open(os.path.join(base_dir, fname), encoding="utf-8").read()
+class CustomBuild(build):
+    sub_commands = [("build_custom", None)] + build.sub_commands
 
 
-with open("requirements.txt") as f:
-    required = f.read().splitlines()
-
-# package_dir = {"pyonelab": "pyonelab-{}".format(platform.system())}
-package_dir = {"pyonelab": "pyonelab"}
 setup(
-    name="pyonelab",
-    version=about["__version__"],
-    author=about["__author__"],
-    author_email=about["__author_email__"],
-    packages=find_packages(),
-    description=about["__description__"],
-    long_description=read("README.rst"),
-    long_description_content_type="text/x-rst",
-    url=about["__website__"],
-    project_urls={"Documentation": about["__website__"]},
-    license=about["__license__"],
-    platforms="any",
-    package_dir=package_dir,
-    include_package_data=True,
-    install_requires=required,
-    extras_require={},
-    classifiers=[
-        about["__status__"],
-        about["__license__"],
-        "Intended Audience :: Science/Research",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Topic :: Scientific/Engineering :: Mathematics",
-    ],
+    cmdclass={
+        "build": CustomBuild,
+        "build_custom": CustomCommand,
+    },
+    scripts=["pyonelab/gmsh", "pyonelab/getdp"],
+    package_data={"pyonelab": ["bin/getdp", "bin/gmsh"]},
 )

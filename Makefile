@@ -1,15 +1,15 @@
 
 
+.PHONY: test clean
+
 SHELL := /bin/bash
 
-# VERSION=$(shell python3 -c "import gyptis; print(gyptis.__version__)")
 VERSION=$(shell python3 -c "import pyonelab; print(pyonelab.__version__)")
 
 ONELAB_VERSION = "stable"
 
-default:
-	@echo "\"make save\"?"
-	echo $(VERSION)
+version:
+	@echo version $(VERSION)
 
 tag:
 	# Make sure we're on the master branch
@@ -21,19 +21,14 @@ tag:
 pipy: setup.py pipbuild
 	twine upload dist/*
 
-pipbuild: preppip
+pipbuild: cleanpreppip
 		@if [ "$(shell git rev-parse --abbrev-ref HEAD)" != "master" ]; then exit 1; fi
 		rm -rf dist/*
 		python3 setup.py sdist
 		python3 setup.py bdist_wheel --universal
 
-preppip: cleanpreppip
-	python3 preppip.py
-
 cleanpreppip:
-	rm -rf pyonelab-Linux
-	rm -rf pyonelab-Darwin
-	rm -rf pyonelab-Windows
+	rm -rf pyonelab/bin
 
 publish: tag pipy
 
@@ -45,10 +40,8 @@ gh:
 	git commit -a -m "$$MSG"
 	git push
 
-
-
 test:
-	pytest ./tests -s --cov=./
+	pytest ./test --cov=./
 
 clean: rmonelab rmtmp cleanpreppip
 	@find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
@@ -71,20 +64,20 @@ rmonelab:
 	@find . -type f -name '*.pos' -o -name '*.pre' -o -name '*.msh' -o -name '*.res' | xargs rm -f
 
 lint:
-	flake8 setup.py pyonelab/ tests/*.py
+	flake8 setup.py pyonelab/ test/*.py
 
 style:
 	@echo "Styling..."
-	black setup.py pyonelab/ tests/*.py
+	black setup.py pyonelab/ test/*.py
 
 onelab-linux:
-	bash docker/install_onelab_prebuilt.sh Linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
+	python dev/install_onelab_prebuilt.py Linux $(PWD)/pyonelab/bin/Linux $(ONELAB_VERSION)
 
 onelab-osx:
-	bash docker/install_onelab_prebuilt.sh Darwin $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
+	python dev/install_onelab_prebuilt.py Darwin $(PWD)/pyonelab/bin/Darwin $(ONELAB_VERSION)
 
 onelab-windows:
-	bash docker/install_onelab_prebuilt.sh Windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
+	python dev/install_onelab_prebuilt.py Windows $(PWD)/pyonelab/bin/Windows $(ONELAB_VERSION)
 
 onelab: onelab-linux onelab-osx onelab-windows
 
