@@ -29,7 +29,6 @@ class CustomCommand(Command):
     def run(self) -> None:
         logging.logging.info("Downloading binaries")
         system = platform.system()
-        system = "Darwin"
         script_path = os.path.realpath(os.path.dirname(os.path.abspath(__file__)))
         bin_path = os.path.realpath(os.path.join(script_path, self.pkg_name, "bin"))
         lib_path = os.path.realpath(os.path.join(script_path, self.pkg_name, "lib"))
