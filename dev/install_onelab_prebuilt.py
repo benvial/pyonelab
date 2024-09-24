@@ -11,9 +11,7 @@ import urllib.request
 import tarfile
 import zipfile
 import tempfile
-
-import logging
-logger = logging.getLogger(__name__)
+from setuptools import logging
 
 OS = sys.argv[1]
 ONELAB_PATH = os.path.realpath(sys.argv[2])
@@ -31,7 +29,7 @@ else:
 os.makedirs(ONELAB_PATH, exist_ok=True)
 os.chdir(ONELAB_PATH)
 
-logger.info(f"Installing onelab {VERSION} for {OS} in {ONELAB_PATH}")
+logging.logging.info(f"Installing onelab {VERSION} for {OS} in {ONELAB_PATH}")
 
 if OS == "Linux":
     EXTRACT = tarfile.open
@@ -68,35 +66,36 @@ def extract_archive(archname):
 
 # gmsh
 
-logger.info(f"Installing gmsh...")
+logging.logging.info(f"Installing gmsh...")
 with urllib.request.urlopen(f"https://gmsh.info/bin/{GMSH_ARCH}") as response:
     with open(f"gmsh.{ARCHEXT}", "wb") as f:
         f.write(response.read())
 extract_archive(f"gmsh.{ARCHEXT}")
 
-if OS == "windows":
+if OS == "Windows":
     shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "gmsh.exe"), ONELAB_PATH)
 else:
     shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "bin", "gmsh"), ONELAB_PATH)
 
-if OS == "osx":
+if OS == "Darwin":
     for f in os.listdir(os.path.join(tmpdir, GMSH_NAME, "lib")):
+        print(f)
         if f.endswith(".dylib"):
             shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "lib", f), ONELAB_PATH)
 
 
 # getdp
 
-logger.info(f"Installing getdp...")
+logging.logging.info(f"Installing getdp...")
 with urllib.request.urlopen(f"https://getdp.info/bin/{GETDP_ARCH}") as response:
     with open(f"getdp.{ARCHEXT}", "wb") as f:
         f.write(response.read())
 extract_archive(f"getdp.{ARCHEXT}")
-if OS == "windows":
+if OS == "Windows":
     shutil.copy2(os.path.join(tmpdir, GETDP_NAME, "getdp.exe"), ONELAB_PATH)
 else:
     shutil.copy2(os.path.join(tmpdir, GETDP_NAME, "bin", "getdp"), ONELAB_PATH)
 
 
-logger.info("Installation done.")
+logging.logging.info("Installation done.")
 
