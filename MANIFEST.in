@@ -1,0 +1,3 @@
+recursive-include pyonelab/bin libgmsh* gmsh* getdp*
+include README.rst
+include LICENSE.txt

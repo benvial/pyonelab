@@ -53,5 +53,5 @@ setup(
         "build_custom": CustomCommand,
     },
     scripts=["pyonelab/gmsh", "pyonelab/getdp"],
-    package_data={"pyonelab": ["bin/getdp", "bin/gmsh"]},
+    package_data={"pyonelab": ["bin/*"]},
 )
