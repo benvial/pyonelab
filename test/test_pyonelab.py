@@ -5,8 +5,9 @@
 # License: MIT
 
 
-import pyonelab
-
-
 def test_metadata():
+    import pyonelab
+
     pyonelab.__version__
+    pyonelab.__author__
+    pyonelab.__description__

@@ -8,6 +8,7 @@ import pyonelab
 import os
 import subprocess
 import tempfile
+import platform
 
 tempdir = tempfile.mkdtemp()
 
