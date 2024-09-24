@@ -12,7 +12,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Install systrem packages
-        if: ${{ matrix.os }} == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update -q
           sudo apt-get install -q -y --no-install-recommends libgl1-mesa-dev libglu1 libxinerama1 libxft-dev libxcursor1
