@@ -31,32 +31,31 @@ else:
 os.makedirs(ONELAB_PATH, exist_ok=True)
 os.chdir(ONELAB_PATH)
 
-logger.info("Installing onelab {} for {} in {}".format(VERSION, OS, ONELAB_PATH))
+logger.info(f"Installing onelab {VERSION} for {OS} in {ONELAB_PATH}")
 
 if OS == "Linux":
     EXTRACT = tarfile.open
     ARCHEXT = "tgz"
-    GMSH_NAME = "gmsh-{}-Linux64".format(GMSH_VERSION)
-    GMSH_ARCH = "Linux/{}.{}".format(GMSH_NAME, ARCHEXT)
-    GETDP_NAME = "getdp-{}-Linux64".format(GETDP_VERSION)
-    GETDP_ARCH = "Linux/{}c.{}".format(GETDP_NAME, ARCHEXT)
+    GMSH_NAME = f"gmsh-{GMSH_VERSION}-Linux64"
+    GMSH_ARCH = f"Linux/{GMSH_NAME}.{ARCHEXT}"
+    GETDP_NAME = f"getdp-{GETDP_VERSION}-Linux64"
+    GETDP_ARCH = f"Linux/{GETDP_NAME}c.{ARCHEXT}"
 
 elif OS == "Darwin":
     EXTRACT = tarfile.open
     ARCHEXT = "tgz"
-    GMSH_NAME = "gmsh-{}-MacOSX-sdk".format(GMSH_VERSION)
-    GMSH_ARCH = "MacOSX/{}.{}".format(GMSH_NAME, ARCHEXT)
-    GETDP_NAME = "getdp-{}-MacOSX".format(GETDP_VERSION)
-    GETDP_ARCH = "MacOSX/{}c.{}".format(GETDP_NAME, ARCHEXT)
+    GMSH_NAME = f"gmsh-{GMSH_VERSION}-MacOSX-sdk"
+    GMSH_ARCH = f"MacOSX/{GMSH_NAME}.{ARCHEXT}"
+    GETDP_NAME = f"getdp-{GETDP_VERSION}-MacOSX"
+    GETDP_ARCH = f"MacOSX/{GETDP_NAME}c.{ARCHEXT}"
 
 elif OS == "Windows":
     EXTRACT = zipfile.ZipFile
     ARCHEXT = "zip"
-    GMSH_NAME = "gmsh-{}-Windows64".format(GMSH_VERSION)
-    GMSH_ARCH = "Windows/{}.{}".format(GMSH_NAME, ARCHEXT)
-    GETDP_NAME = "getdp-{}-Windows64".format(GETDP_VERSION)
-    GETDP_ARCH = "Windows/{}c.{}".format(GETDP_NAME, ARCHEXT)
-
+    GMSH_NAME = f"gmsh-{GMSH_VERSION}-Windows64"
+    GMSH_ARCH = f"Windows/{GMSH_NAME}.{ARCHEXT}"
+    GETDP_NAME = f"getdp-{GETDP_VERSION}-Windows64"
+    GETDP_ARCH = f"Windows/{GETDP_NAME}c.{ARCHEXT}"
 
 tmpdir = tempfile.mkdtemp()
 os.chdir(tmpdir)
@@ -69,11 +68,11 @@ def extract_archive(archname):
 
 # gmsh
 
-logger.info("Installing gmsh...")
-with urllib.request.urlopen("https://gmsh.info/bin/{}".format(GMSH_ARCH)) as response:
-    with open("gmsh.{}".format(ARCHEXT), "wb") as f:
+logger.info(f"Installing gmsh...")
+with urllib.request.urlopen(f"https://gmsh.info/bin/{GMSH_ARCH}") as response:
+    with open(f"gmsh.{ARCHEXT}", "wb") as f:
         f.write(response.read())
-extract_archive("gmsh.{}".format(ARCHEXT))
+extract_archive(f"gmsh.{ARCHEXT}")
 
 if OS == "windows":
     shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "gmsh.exe"), ONELAB_PATH)
@@ -88,11 +87,11 @@ if OS == "osx":
 
 # getdp
 
-logger.info("Installing getdp...")
-with urllib.request.urlopen("https://getdp.info/bin/{}".format(GETDP_ARCH)) as response:
-    with open("getdp.{}".format(ARCHEXT), "wb") as f:
+logger.info(f"Installing getdp...")
+with urllib.request.urlopen(f"https://getdp.info/bin/{GETDP_ARCH}") as response:
+    with open(f"getdp.{ARCHEXT}", "wb") as f:
         f.write(response.read())
-extract_archive("getdp.{}".format(ARCHEXT))
+extract_archive(f"getdp.{ARCHEXT}")
 if OS == "windows":
     shutil.copy2(os.path.join(tmpdir, GETDP_NAME, "getdp.exe"), ONELAB_PATH)
 else:
@@ -100,3 +99,4 @@ else:
 
 
 logger.info("Installation done.")
+
