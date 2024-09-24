@@ -7,10 +7,14 @@
 
 import pyonelab
 import subprocess
+import platform
 
 
 def test_getdp():
-    out = subprocess.call(["getdp", "--info"])
+    exe_name = "getdp"
+    if platform.system() == "Windows":
+        exe_name += ".exe"
+    out = subprocess.call([exe_name, "--info"])
     assert out == 0
-    out = subprocess.call([pyonelab.gmsh_exec_path, "--version"])
+    out = subprocess.call([pyonelab.getdp_exec_path, "--version"])
     assert out == 0
