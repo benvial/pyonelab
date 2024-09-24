@@ -20,7 +20,7 @@ def get_meta(metadata):
 __version__, __author__, __description__ = get_meta(metadata)
 
 _getdp_name = "getdp"
-_gmsh_name = "getdp"
+_gmsh_name = "gmsh"
 if platform.system() == "Windows":
     _getdp_name += ".exe"
     _gmsh_name += ".exe"
