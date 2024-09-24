@@ -6,6 +6,7 @@
 
 import os
 import importlib.metadata as metadata
+import platform
 
 
 def get_meta(metadata):
@@ -18,5 +19,10 @@ def get_meta(metadata):
 
 __version__, __author__, __description__ = get_meta(metadata)
 
-getdp_exec_path = os.path.join(os.path.dirname(__file__), "bin", "getdp")
-gmsh_exec_path = os.path.join(os.path.dirname(__file__), "bin", "gmsh")
+_getdp_name = "getdp"
+_gmsh_name = "gmsh"
+if platform.system() == "Windows":
+    _getdp_name += ".exe"
+    _gmsh_name += ".exe"
+getdp_exec_path = os.path.join(os.path.dirname(__file__), "bin", _getdp_name)
+gmsh_exec_path = os.path.join(os.path.dirname(__file__), "bin", _gmsh_name)
