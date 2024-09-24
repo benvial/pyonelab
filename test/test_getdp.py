@@ -14,7 +14,7 @@ def test_getdp():
     exe_name = "getdp"
     if platform.system() == "Windows":
         exe_name += ".exe"
-    out = subprocess.call([exe_name, "--info"])
+    out = subprocess.call([exe_name, "--info"], shell=True)
     assert out == 0
-    out = subprocess.call([pyonelab.getdp_exec_path, "--version"])
+    out = subprocess.call([pyonelab.getdp_exec_path, "--version"], shell=True)
     assert out == 0

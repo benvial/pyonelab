@@ -8,4 +8,4 @@ import sys
 import subprocess
 import pyonelab
 
-subprocess.call([pyonelab.getdp_exec_path] + sys.argv[1:])
+subprocess.call([pyonelab.getdp_exec_path] + sys.argv[1:], shell=True)

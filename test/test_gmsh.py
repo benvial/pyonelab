@@ -17,11 +17,11 @@ def test_gmsh():
     exe_name = "gmsh"
     if platform.system() == "Windows":
         exe_name += ".exe"
-    out = subprocess.call([exe_name, "--info"])
+    out = subprocess.call([exe_name, "--info"], shell=True)
     assert out == 0
-    out = subprocess.call([exe_name, "--version"])
+    out = subprocess.call([exe_name, "--version"], shell=True)
     assert out == 0
-    out = subprocess.call([pyonelab.gmsh_exec_path, "--version"])
+    out = subprocess.call([pyonelab.gmsh_exec_path, "--version"], shell=True)
     assert out == 0
 
 
@@ -65,7 +65,7 @@ def test_t1():
     exe_name = "gmsh"
     if platform.system() == "Windows":
         exe_name += ".exe"
-    out = subprocess.call([exe_name, geo, "-2", "-o", msh])
+    out = subprocess.call([exe_name, geo, "-2", "-o", msh], shell=True)
     print(out)
     assert out == 0
     assert os.path.exists(msh)

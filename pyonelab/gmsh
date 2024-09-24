@@ -8,5 +8,5 @@ import sys
 import subprocess
 import pyonelab
 
-subprocess.call([pyonelab.gmsh_exec_path] + sys.argv[1:])
+subprocess.call([pyonelab.gmsh_exec_path] + sys.argv[1:], shell=True)
 
