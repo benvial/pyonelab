@@ -19,6 +19,6 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: "matrix.python_version"
+          python-version: matrix.python_version
       - run: pip install .[test] -v
       - run: pytest ./test --cov=./
