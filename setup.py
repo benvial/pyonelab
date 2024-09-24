@@ -44,7 +44,8 @@ class CustomCommand(Command):
         ]
         if subprocess.call(command) != 0:
             sys.exit(-1)
-        logging.logging.info(f"Copied files {os.listdir(bin_path)}")
+        logging.logging.info(f"Copied binary files {os.listdir(bin_path)}")
+        logging.logging.info(f"Copied lib files {os.listdir(lib_path)}")
 
 
 class CustomBuild(build):
