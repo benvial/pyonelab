@@ -62,14 +62,18 @@ tmpdir = tempfile.mkdtemp()
 os.chdir(tmpdir)
 
 
+def extract_archive(archname):
+    with EXTRACT(archname) as f:
+        # f.extractall(filter="fully_trusted")
+        f.extractall()
+
 # gmsh
 
 logger.info("Installing gmsh...")
 with urllib.request.urlopen("https://gmsh.info/bin/{}".format(GMSH_ARCH)) as response:
     with open("gmsh.{}".format(ARCHEXT), "wb") as f:
         f.write(response.read())
-with EXTRACT("gmsh.{}".format(ARCHEXT)) as f:
-    f.extractall(filter="fully_trusted")
+extract_archive("gmsh.{}".format(ARCHEXT))
 
 if OS == "windows":
     shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "gmsh.exe"), ONELAB_PATH)
@@ -88,8 +92,7 @@ logger.info("Installing getdp...")
 with urllib.request.urlopen("https://getdp.info/bin/{}".format(GETDP_ARCH)) as response:
     with open("getdp.{}".format(ARCHEXT), "wb") as f:
         f.write(response.read())
-with EXTRACT("getdp.{}".format(ARCHEXT)) as f:
-    f.extractall(filter="fully_trusted")
+extract_archive("getdp.{}".format(ARCHEXT))
 if OS == "windows":
     shutil.copy2(os.path.join(tmpdir, GETDP_NAME, "getdp.exe"), ONELAB_PATH)
 else:
