@@ -39,6 +39,7 @@ class CustomCommand(Command):
             "dev/install_onelab_prebuilt.py",
             system,
             bin_path,
+            lib_path,
             onelab_version,
         ]
         if subprocess.call(command) != 0:
