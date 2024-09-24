@@ -32,6 +32,7 @@ class CustomCommand(Command):
         system = "Darwin"
         script_path = os.path.realpath(os.path.dirname(os.path.abspath(__file__)))
         bin_path = os.path.realpath(os.path.join(script_path, self.pkg_name, "bin"))
+        lib_path = os.path.realpath(os.path.join(script_path, self.pkg_name, "lib"))
         onelab_version = "stable"
         command = [
             "python",
@@ -40,9 +41,9 @@ class CustomCommand(Command):
             bin_path,
             onelab_version,
         ]
-        # logging.logging.info(f"Copied files {os.listdir(bin_path)}")
         if subprocess.call(command) != 0:
             sys.exit(-1)
+        logging.logging.info(f"Copied files {os.listdir(bin_path)}")
 
 
 class CustomBuild(build):

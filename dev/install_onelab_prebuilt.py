@@ -15,7 +15,8 @@ from setuptools import logging
 
 OS = sys.argv[1]
 ONELAB_PATH = os.path.realpath(sys.argv[2])
-VERSION = sys.argv[3]
+ONELAB_LIB_PATH = os.path.realpath(sys.argv[3])
+VERSION = sys.argv[4]
 
 if VERSION == "stable":
     GMSH_VERSION = "4.13.1"
@@ -27,7 +28,7 @@ else:
     sys.exit(1)
 
 os.makedirs(ONELAB_PATH, exist_ok=True)
-os.chdir(ONELAB_PATH)
+os.makedirs(ONELAB_LIB_PATH, exist_ok=True)
 
 logging.logging.info(f"Installing onelab {VERSION} for {OS} in {ONELAB_PATH}")
 
@@ -79,9 +80,8 @@ else:
 
 if OS == "Darwin":
     for f in os.listdir(os.path.join(tmpdir, GMSH_NAME, "lib")):
-        print(f)
         if f.endswith(".dylib"):
-            shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "lib", f), ONELAB_PATH)
+            shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "lib", f), ONELAB_LIB_PATH)
 
 
 # getdp
