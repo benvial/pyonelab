@@ -41,6 +41,7 @@ class CustomCommand(Command):
         ]
         if subprocess.call(command) != 0:
             sys.exit(-1)
+        logging.logging.info(f"Copied files {os.listdir(bin_path)}")
 
 
 class CustomBuild(build):
@@ -53,5 +54,5 @@ setup(
         "build_custom": CustomCommand,
     },
     scripts=["pyonelab/gmsh", "pyonelab/getdp"],
-    package_data={"pyonelab": ["bin/*"]},
+    # package_data={"pyonelab": ["bin/*"]},
 )
