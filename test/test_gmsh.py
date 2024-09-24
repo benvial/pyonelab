@@ -8,18 +8,14 @@ import pyonelab
 import os
 import subprocess
 import tempfile
-import platform
 
 tempdir = tempfile.mkdtemp()
 
 
 def test_gmsh():
-    exe_name = "gmsh"
-    if platform.system() == "Windows":
-        exe_name += ".exe"
-    out = subprocess.call([exe_name, "--info"], shell=True)
+    out = subprocess.call(["gmsh", "--info"], shell=True)
     assert out == 0
-    out = subprocess.call([exe_name, "--version"], shell=True)
+    out = subprocess.call(["gmsh", "--version"], shell=True)
     assert out == 0
     out = subprocess.call([pyonelab.gmsh_exec_path, "--version"], shell=True)
     assert out == 0
@@ -62,10 +58,7 @@ def test_t1():
     msh = os.path.join(tempdir, "t1.msh")
     with open(geo, "w") as f:
         f.write(t1)
-    exe_name = "gmsh"
-    if platform.system() == "Windows":
-        exe_name += ".exe"
-    out = subprocess.call([exe_name, geo, "-2", "-o", msh], shell=True)
+    out = subprocess.call(["gmsh", geo, "-2", "-o", msh], shell=True)
     print(out)
     assert out == 0
     assert os.path.exists(msh)
