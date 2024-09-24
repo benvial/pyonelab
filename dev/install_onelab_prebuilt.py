@@ -81,7 +81,7 @@ else:
     shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "bin", "gmsh"), ONELAB_PATH)
 
 if OS == "osx":
-    for f in os.listdir("gmsh_tmp/lib"):
+    for f in os.listdir(os.path.join(tmpdir, GMSH_NAME, "lib")):
         if f.endswith(".dylib"):
             shutil.copy2(os.path.join(tmpdir, GMSH_NAME, "lib", f), ONELAB_PATH)
 
